@@ -37,30 +37,26 @@ namespace Superheroes.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Delete(Superhero superhero)
+        public IActionResult Delete(int ID)
         {
-            _context.Superheroes.Remove(superhero);
+            Superhero superheroToRemove = _context.Superheroes.First(s => s.ID == ID);
+            _context.Superheroes.Remove(superheroToRemove);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        public IActionResult Read()
+        public IActionResult Details(int ID)
         {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Read(Superhero superhero)
-        {
-            _context.Superheroes.Find(superhero);
-            return RedirectToAction("Details");
+            return View(_context.Superheroes.First(s => s.ID == ID));
         }
         public IActionResult Edit()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Edit(Superhero superhero)
+        public IActionResult Edit(int ID)
         {
-            _context.Superheroes.Update(superhero);
+            Superhero superheroToEdit = _context.Superheroes.First(s => s.ID == ID);
+            _context.Superheroes.Update(superheroToEdit);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
