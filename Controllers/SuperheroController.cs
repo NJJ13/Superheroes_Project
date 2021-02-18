@@ -39,8 +39,8 @@ namespace Superheroes.Controllers
         [HttpPost]
         public IActionResult Delete(int ID)
         {
-            Superhero superheroToRemove = _context.Superheroes.First(s => s.ID == ID);
-            _context.Superheroes.Remove(superheroToRemove);
+            Superhero superheroToDelete = _context.Superheroes.Find(ID);
+            _context.Superheroes.Remove(superheroToDelete);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
