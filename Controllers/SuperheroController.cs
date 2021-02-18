@@ -32,30 +32,31 @@ namespace Superheroes.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        public IActionResult Delete()
-        {
-            return View();
-        }
-        [HttpPost]
         public IActionResult Delete(int ID)
         {
-            Superhero superheroToDelete = _context.Superheroes.Find(ID);
+            Superhero superhero = _context.Superheroes.Find(ID);
+            return View(superhero);
+        }
+        [HttpPost]
+        public IActionResult Delete(int ID, Superhero superheroToDelete)
+        {
+            superheroToDelete = _context.Superheroes.Find(ID);
             _context.Superheroes.Remove(superheroToDelete);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
         public IActionResult Details(int ID)
         {
-            return View(_context.Superheroes.First(s => s.ID == ID));
+            return View(_context.Superheroes.Find(ID));
         }
-        public IActionResult Edit()
-        {
-            return View();
-        }
-        [HttpPost]
         public IActionResult Edit(int ID)
         {
-            Superhero superheroToEdit = _context.Superheroes.First(s => s.ID == ID);
+            return View(_context.Superheroes.Find(ID));
+        }
+        [HttpPost]
+        public IActionResult Edit(int ID, Superhero superheroToEdit)
+        {
+            superheroToEdit = _context.Superheroes.Find(ID);
             _context.Superheroes.Update(superheroToEdit);
             _context.SaveChanges();
             return RedirectToAction("Index");
