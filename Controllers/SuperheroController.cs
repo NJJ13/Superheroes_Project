@@ -54,9 +54,14 @@ namespace Superheroes.Controllers
             return View(_context.Superheroes.Find(ID));
         }
         [HttpPost]
-        public IActionResult Edit(int ID, Superhero superheroToEdit)
+        public IActionResult Edit(int ID, Superhero editedHero)
         {
-            superheroToEdit = _context.Superheroes.Find(ID);
+            Superhero superheroToEdit = _context.Superheroes.Find(ID);
+            superheroToEdit.Name = editedHero.Name;
+            superheroToEdit.AlterEgo = editedHero.AlterEgo;
+            superheroToEdit.PrimaryAbility = editedHero.PrimaryAbility;
+            superheroToEdit.SecondaryAbility = editedHero.SecondaryAbility;
+            superheroToEdit.Catchphrase = editedHero.Catchphrase;
             _context.Superheroes.Update(superheroToEdit);
             _context.SaveChanges();
             return RedirectToAction("Index");
